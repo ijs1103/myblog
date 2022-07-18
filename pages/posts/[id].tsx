@@ -8,7 +8,7 @@ import { unified } from "unified";
 const Post: NextPage<{ post: string; data: any }> = ({ post, data }) => {
   return (
     <>
-      <h1 className="font-semibold text-center text-xl mt-5 mb-10">
+      <h1 className="font-semibold text-xl mt-5 mb-10">
         디테일
       </h1>
       <div
