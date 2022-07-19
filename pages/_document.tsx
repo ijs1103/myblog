@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class SpecialDocument extends Document {
   render() {
@@ -10,8 +10,8 @@ class SpecialDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default SpecialDocument;
+export default SpecialDocument

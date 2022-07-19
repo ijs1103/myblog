@@ -1,21 +1,19 @@
-import matter from "gray-matter";
-import { readdirSync, readFileSync } from "fs";
-import { NextPage } from "next";
-import Link from "next/link";
+import matter from 'gray-matter'
+import { readdirSync, readFileSync } from 'fs'
+import { NextPage } from 'next'
+import Link from 'next/link'
 
 interface Post {
-  title: string;
-  date: string;
-  category: string;
-  slug: string;
+  title: string
+  date: string
+  category: string
+  slug: string
 }
 
 const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
   return (
     <>
-      <h1 className="font-semibold text-center text-xl mt-5 mb-10">
-        블로그
-      </h1>
+      <h1 className="mt-5 mb-10 text-center text-xl font-semibold">블로그</h1>
       {posts.map((post, index) => (
         <div key={index} className="mb-5">
           <Link href={`/posts/${post.slug}`}>
@@ -31,20 +29,20 @@ const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
         </div>
       ))}
     </>
-  );
-};
+  )
+}
 
 export async function getStaticProps() {
-  const blogPosts = readdirSync("./md").map((file) => {
-    const content = readFileSync(`./md/${file}`, "utf-8");
-    const [slug, _] = file.split(".");
-    return { ...matter(content).data, slug };
-  });
+  const blogPosts = readdirSync('./md').map((file) => {
+    const content = readFileSync(`./md/${file}`, 'utf-8')
+    const [slug, _] = file.split('.')
+    return { ...matter(content).data, slug }
+  })
   return {
     props: {
       posts: blogPosts.reverse(),
     },
-  };
+  }
 }
 
-export default Home;
+export default Home

@@ -1,1 +1,1 @@
-export type toggleFn = (active: boolean) => void;
+export type toggleFn = (active: boolean) => void

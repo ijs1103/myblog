@@ -1,8 +1,7 @@
 import React from 'react'
 
 const useScroll = () => {
-	
-	return ;
+  return
 }
 
 export default useScroll

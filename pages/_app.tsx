@@ -1,34 +1,42 @@
-import { useState, useCallback } from 'react';
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "next-themes";
-import Header from "@components/Header";
-import LeftNav from "@components/LeftNav";
-import BodyBlackout from "@components/BodyBlackout";
-import SearchContainer from '@components/SearchContainer';
-
-
+import { useState, useCallback } from 'react'
+import '../styles/globals.css'
+import type { AppProps } from 'next/app'
+import { ThemeProvider } from 'next-themes'
+import Header from '@components/Header'
+import LeftNav from '@components/LeftNav'
+import BodyBlackout from '@components/BodyBlackout'
+import SearchContainer from '@components/SearchContainer'
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [searchOn, setSearchOn] = useState(false);
-  const onSetIsVisible = useCallback((active: boolean) => {
-    setIsVisible(active);
-  }, [setIsVisible]);
-  const onSetSearchOn = useCallback((active: boolean) => {
-    setSearchOn(active);
-  }, [setSearchOn]);
+  const [isVisible, setIsVisible] = useState(false)
+  const [searchOn, setSearchOn] = useState(false)
+  const onSetIsVisible = useCallback(
+    (active: boolean) => {
+      setIsVisible(active)
+    },
+    [setIsVisible],
+  )
+  const onSetSearchOn = useCallback(
+    (active: boolean) => {
+      setSearchOn(active)
+    },
+    [setSearchOn],
+  )
   return (
     <ThemeProvider attribute="class">
-      <Header onSetIsVisible={onSetIsVisible} onSetSearchOn={onSetSearchOn} isSearchOn={searchOn} />
+      <Header
+        onSetIsVisible={onSetIsVisible}
+        onSetSearchOn={onSetSearchOn}
+        isSearchOn={searchOn}
+      />
       <LeftNav isVisible={isVisible} />
       <BodyBlackout isVisible={isVisible} onSetIsVisible={onSetIsVisible} />
       <SearchContainer isSearchOn={searchOn} onSetSearchOn={onSetSearchOn} />
-      <div className="mt-[60px] w-full max-w-xl lg:max-w-[1024px] mx-auto">
+      <div className="mx-auto mt-[60px] w-full max-w-xl lg:max-w-[1024px]">
         <Component {...pageProps} />
       </div>
     </ThemeProvider>
-  );
+  )
 }
 
-export default MyApp;
+export default MyApp
