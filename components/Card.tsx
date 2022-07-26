@@ -1,22 +1,27 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { cls } from '@libs/utils'
 
-function Card() {
+interface Props {
+  category: string
+  title: string
+  date: string
+  slug: string
+}
+function Card({ category, title, date, slug }: Props) {
   return (
-    <Link href="/">
+    <Link href={`/posts/${slug}`}>
       <a>
         <article className="card">
           <div className="card__img"></div>
-          <a href="#" className="card_link">
-            <div className="card__img--hover"></div>
-          </a>
+          <div className="card__img--hover"></div>
           <div className="card__info">
-            <span className="card__category text-react">Recipe</span>
-            <h3 className="card__title">Crisp Spanish tortilla Matzo brei</h3>
-            <a href="#" className="card__keyword">
-              Celeste Mills
-            </a>
+            <span className={cls('card__category ', `text-${category}`)}>
+              {category}
+            </span>
+            <h3 className="card__title">{title}</h3>
+            <span className="card__keyword">{date}</span>
           </div>
           <style jsx>{`
             .card__img,
@@ -82,7 +87,6 @@ function Card() {
               font-size: 13px;
               letter-spacing: 2px;
               font-weight: bold;
-              color: #868686;
             }
 
             .card__title {

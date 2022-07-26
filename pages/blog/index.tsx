@@ -1,9 +1,9 @@
 import matter from 'gray-matter'
 import { readdirSync, readFileSync } from 'fs'
-import { NextPage } from 'next'
-import Link from 'next/link'
+import { GetStaticProps, NextPage } from 'next'
 import Card from '@components/Card'
 import CategoryTitle from '@components/CategoryTitle'
+import Link from 'next/link'
 
 interface Post {
   title: string
@@ -11,6 +11,21 @@ interface Post {
   category: string
   slug: string
 }
+
+const getFileList = (dirName: string) => {
+  let files: string[] = [];
+  const items = readdirSync(dirName, { withFileTypes: true });
+
+  for (const item of items) {
+      if (item.isDirectory()) {
+          files = [...files, ...getFileList(`${dirName}/${item.name}`)];
+      } else {
+          files.push(`${dirName}/${item.name}`);
+      }
+  }
+
+  return files;
+};
 
 const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
   return (
@@ -33,29 +48,23 @@ const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
   )
 }
 
-export async function getStaticProps() {
-  const getFileList = (dirName: string) => {
-    let files: string[] = [];
-    const items = readdirSync(dirName, { withFileTypes: true });
-    for (const item of items) {
-        if (item.isDirectory()) {
-            files = [...files, ...getFileList(`${dirName}/${item.name}`)];
-        } else {
-            files.push(`${dirName}/${item.name}`);
-        }
-    }
-    return files;
-  };
-  const blogPosts = getFileList('./md').map(file => {
-    const content = readFileSync(`${file}`, 'utf-8')
-    const len = file.split('/').length - 1
-    const [slug, _] = file.split('/')[len].split('.')
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  // const files = getFileList('./md').map(file => {
+  //   const content = readFileSync(`./${file}`, 'utf-8')
+  //   const [slug, _] = file.split('.')
+  //   const title = slug.slice(slug.indexOf('/', 3))
+  //   console.log(content)
+  // })
+  const blogPosts = readdirSync(`./md/`).map((file) => {
+    const content = readFileSync(`./md/${file}`, 'utf-8')
+    const [slug, _] = file.split('.')
     return { ...matter(content).data, slug }
   })
   return {
     props: {
-      posts: blogPosts.reverse(),
+      posts: '',
     },
   }
 }
+
 export default Home

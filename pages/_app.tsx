@@ -6,6 +6,7 @@ import Header from '@components/Header'
 import LeftNav from '@components/LeftNav'
 import BodyBlackout from '@components/BodyBlackout'
 import SearchContainer from '@components/SearchContainer'
+import { RecoilRoot } from 'recoil'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isVisible, setIsVisible] = useState(false)
@@ -32,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LeftNav isVisible={isVisible} />
       <BodyBlackout isVisible={isVisible} onSetIsVisible={onSetIsVisible} />
       <SearchContainer isSearchOn={searchOn} onSetSearchOn={onSetSearchOn} />
-      <div className="mx-auto mt-[60px] w-full max-w-xl lg:max-w-[1024px]">
+      <div className="mt-[60px]">
         <Component {...pageProps} />
       </div>
     </ThemeProvider>

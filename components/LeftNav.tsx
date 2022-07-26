@@ -1,11 +1,16 @@
 import { memo } from 'react'
 import Image from 'next/image'
 import profilePic from '../public/images/profile_default.png'
+import { readdirSync, readFileSync } from 'fs'
 import { cls } from '@libs/utils'
+import Link from 'next/link'
+
 interface Props {
   isVisible: boolean
 }
 function LeftNav({ isVisible }: Props) {
+  //const categories = readdirSync('./md')
+  //console.log(categories)
   return (
     <nav
       className={cls(
@@ -27,17 +32,21 @@ function LeftNav({ isVisible }: Props) {
           <h3>홍길동</h3>
         </div>
         <ul className="mt-4 border-t border-gray-600">
-          {['React', 'Vue', 'Javascript', 'Typescript', 'Web', 'Etc'].map(
+          {['react', 'next', 'javascript', 'typescript', 'web', 'etc'].map(
             (cur, idx) => {
               return (
-                <li
-                  key={idx}
-                  className="cursor-pointer px-2 py-2 text-sm hover:bg-gray-500 hover:text-primary md:px-3  md:py-3 md:text-2xl"
-                >
-                  {cur}
-                </li>
+                <Link key={idx} href={`/blog/${cur}/posts`}>
+                  <a>
+                    <li
+                      
+                      className="cursor-pointer px-2 py-2 text-sm hover:bg-gray-500 hover:text-primary md:px-3  md:py-3 md:text-2xl"
+                    >
+                      {cur}
+                    </li>
+                  </a>
+                </Link>
               )
-            },
+            }
           )}
         </ul>
         <ul className="absolute bottom-0 left-0 flex w-full items-center justify-between border-t border-gray-600 px-3 py-3 ">
