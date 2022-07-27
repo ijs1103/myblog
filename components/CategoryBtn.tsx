@@ -3,12 +3,12 @@ import React from 'react'
 
 interface Props {
   children: React.ReactNode
-  link: string
+  link?: string
 }
 function CategoryBtn({ children, link }: Props) {
   return (
-    <Link href={link}>
-      <a className="rounded-xl bg-secondary p-1 text-sm text-white hover:text-gray-200 hover:brightness-110">
+    <Link href={link ? link : '/'}>
+      <a onClick={e => !link && e.preventDefault()} className="transition duration-300 rounded-xl bg-[darkgray] hover:bg-gray-400 px-2 py-1 font-bold text-sm text-white hover:text-gray-900 hover:brightness-110">
         {children}
       </a>
     </Link>

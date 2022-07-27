@@ -8,8 +8,8 @@ import Link from 'next/link'
 interface Post {
   title: string
   date: string
-  category: string
   slug: string
+  tag: string
 }
 
 interface Props {
@@ -26,7 +26,8 @@ const Home: NextPage<Props> = ({ posts, category }: Props) => {
           {posts.map((post) => (
             <Card
               key={post.slug}
-              category={post.category}
+              tag={post.tag}
+              category={category}
               title={post.title}
               date={post.date}
               slug={post.slug}
@@ -38,7 +39,9 @@ const Home: NextPage<Props> = ({ posts, category }: Props) => {
   )
 }
 export function getStaticPaths() {
-  const categories = readdirSync('./md').map((category) => { params: { category } })
+  const categories = readdirSync('./md').map((category) => { 
+    return { params: { category } }
+  })
   return {
     paths: categories,
     fallback: false,
@@ -54,7 +57,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {
       posts: blogPosts.reverse(),
-			category
+      category
     },
   }
 }

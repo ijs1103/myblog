@@ -30,7 +30,6 @@ const getFileList = (dirName: string) => {
 const Home: NextPage<{ posts: Post[] }> = ({ posts }) => {
   return (
     <>
-      <CategoryTitle category="react" />
       <div className="mx-auto w-full max-w-xl py-10 lg:max-w-[1024px]">
         <div className="flex flex-col flex-wrap items-center gap-8 lg:flex-row lg:justify-center">
           {posts.map((post) => (

@@ -14,7 +14,7 @@ function CategoryTitle({ category }: Props) {
         `text-${category}`,
       )}
     >
-      <h2 className="text-3xl font-bold text-react sm:text-4xl">{category}</h2>
+      <h2 className="text-3xl font-bold sm:text-4xl">{category}</h2>
     </div>
   )
 }

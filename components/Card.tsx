@@ -2,26 +2,29 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { cls } from '@libs/utils'
+import CategoryBtn from '@components/CategoryBtn'
+
 
 interface Props {
   category: string
   title: string
   date: string
   slug: string
+  tag: string
 }
-function Card({ category, title, date, slug }: Props) {
+function Card({ tag, category, title, date, slug }: Props) {
   return (
-    <Link href={`/posts/${slug}`}>
+    <Link href={`/blog/${category}/${slug}`}>
       <a>
         <article className="card">
           <div className="card__img"></div>
           <div className="card__img--hover"></div>
           <div className="card__info">
-            <span className={cls('card__category ', `text-${category}`)}>
-              {category}
-            </span>
-            <h3 className="card__title">{title}</h3>
             <span className="card__keyword">{date}</span>
+            <h3 className="card__title">{title}</h3>
+            <div className='flex flex-wrap gap-2'>
+              <CategoryBtn>{tag}</CategoryBtn>
+            </div>
           </div>
           <style jsx>{`
             .card__img,
@@ -81,19 +84,12 @@ function Card({ category, title, date, slug }: Props) {
               padding: 16px 24px 24px 24px;
             }
 
-            .card__category {
-              font-family: 'Raleway', sans-serif;
-              text-transform: uppercase;
-              font-size: 13px;
-              letter-spacing: 2px;
-              font-weight: bold;
-            }
-
             .card__title {
               margin-top: 5px;
               margin-bottom: 10px;
               color: #000;
               font-family: 'Roboto Slab', serif;
+              font-size: 24px;
             }
 
             .card__keyword {
