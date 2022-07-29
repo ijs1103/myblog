@@ -39,7 +39,7 @@ const Home: NextPage<Props> = ({ posts, category }: Props) => {
   )
 }
 export function getStaticPaths() {
-  const categories = readdirSync('./md').map((category) => { 
+  const categories = readdirSync('./mdx').map((category) => { 
     return { params: { category } }
   })
   return {
@@ -49,8 +49,8 @@ export function getStaticPaths() {
 }
 export const getStaticProps: GetStaticProps = async (ctx) => {
 	const category = ctx.params?.category
-  const blogPosts = readdirSync(`./md/${category}`).map((file) => {
-    const content = readFileSync(`./md/${category}/${file}`, 'utf-8')
+  const blogPosts = readdirSync(`./mdx/${category}`).map((file) => {
+    const content = readFileSync(`./mdx/${category}/${file}`, 'utf-8')
     const [slug, _] = file.split('.')
     return { ...matter(content).data, slug }
   })

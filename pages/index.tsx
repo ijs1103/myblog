@@ -48,7 +48,7 @@ export async function getStaticProps() {
     }
     return files;
   };
-  const blogPosts = getFileList('./md').map(file => {
+  const blogPosts = getFileList('./mdx').map(file => {
     const content = readFileSync(`${file}`, 'utf-8')
     const splitted = file.split('/')
     const len = splitted.length - 1
